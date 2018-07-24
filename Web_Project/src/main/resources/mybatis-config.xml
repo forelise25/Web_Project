@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration><!-- 이곳에 데이터소스를 삽입해서 사용하는 사람들도 있다.하지만 우리는 기존의 소스가 있으니 사용하지 않겠다. 이 문서 없으면 안돼 -->
+<typeAliases>
+	<package name="com.example.project"/><!-- 이렇게 하면 패키지명을 default로 기본적으로 깔겠다란 의미  -->
+</typeAliases>
+</configuration>
+<!-- 없어도 꼭 이건 열고 닫고 해줘야함 -->
