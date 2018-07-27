@@ -15,4 +15,6 @@ public interface MemberService {
 	public void deleteMember(String userId);
 	//ȸ������
 	public void updateMember(MemberVO vo);
+	
+	public boolean checkPw(String userId, String userPw);
 }

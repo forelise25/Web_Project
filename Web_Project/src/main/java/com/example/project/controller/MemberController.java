@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.project.model.dto.MemberVO;
 import com.example.project.service.MemberService;
@@ -46,7 +47,7 @@ public class MemberController {
 		return "member/member_view";
 	}
 	//04.회원 정보 수정 처리
-	/*
+	
 	@RequestMapping("member/update.do")
 	public String memberUpdate(@ModelAttribute MemberVO vo, Model model) {
 		boolean result=memberService.checkPw(vo.getUserId(), vo.getUserPw());
@@ -54,8 +55,28 @@ public class MemberController {
 			memberService.updateMember(vo);
 			return "redirect:/member/list.do";
 		}else {
+			MemberVO vo2 = memberService.viewMember(vo.getUserId());
+			vo.setUserRegdate(vo2.getUserRegdate());
+			vo.setUserUpdatedate(vo2.getUserUpdatedate());
+			model.addAttribute("dto", vo);
+			model.addAttribute("message","비밀번호불일치");
 			return "member/member_view";
 		}
 	}
-	*/
+	
+	//05. 회원정보 삭제
+	@RequestMapping("member/delete.do")
+	public String memberDelete(@RequestParam String userId, @RequestParam String userPw, Model model) {
+		boolean result=memberService.checkPw(userId, userPw);
+		if(result) {
+			memberService.deleteMember(userId);
+			return "redirect:/member/list.do";
+		}else {
+			model.addAttribute("dto", memberService.viewMember(userId));
+			model.addAttribute("message","비밀번호불일치");
+			return "member/member_view";
+		}
+	}
+	
+	
 }

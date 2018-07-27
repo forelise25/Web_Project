@@ -8,10 +8,11 @@
 </head>
 
 <body>
+<div class="container">
  <%@ include file="../include/member_menu.jsp" %>  
  <h2> 회원 목록</h2>
- <input type="button" value="회원등록" onclick="location.href='${path}/member/write.do'">
- <table border="1" width="700px">
+ 
+ <table  width="700px" class="table table-hover">
    <tr>
       <th> 아이디 </th>
       <th> 이름 </th>
@@ -28,6 +29,7 @@
     </c:forEach>
     
  </table>
-
+ <input class="btn btn-default" type="button" value="회원등록" onclick="location.href='${path}/member/write.do'">
+</div>
 </body>
 </html>

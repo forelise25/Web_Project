@@ -19,6 +19,7 @@
 		$("#btnDelete").click(function(){
 			if(confirm("삭제하시겠습니까?")){
 				document.form1.action = "${path}/member/delete.do";
+				document.form1.submit();
 			}
 		});
 	});
@@ -57,8 +58,10 @@
 				<td colspan="2" align="center">
 					<input type="button" value="수정" id="btnUpdate">
 					<input type="button" value="삭제" id="btnDelete">
+					<div style="color:red">${message}</div>
 				</td>
-			</tr>
+		</tr>
+		
 	</table>
 </form>
 </body>
