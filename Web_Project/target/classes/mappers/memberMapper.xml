@@ -25,4 +25,24 @@
 			from tbl_member
 			where user_id=#{userId}
 		</select>
+		<!-- 비밀번호 체크 -->
+		<select id="checkPw" resultType="int">
+			select count(*)
+			from tbl_member
+			where user_id = #{userId} AND user_pw = #{userPw}
+		</select>
+		<!-- 회원 정보 수정 -->
+		<update id="updateMember">
+			update tbl_member
+			set 
+				user_pw=#{userPw},
+				user_name=#{userName},
+				user_email=#{userEmail},
+				user_updatedate=now()
+			where
+				user_id=#{userId}
+		</update>
+		<delete id="deleteMember">
+		delete from tbl_member where user_id=#{userId}
+		</delete>
 	</mapper>
