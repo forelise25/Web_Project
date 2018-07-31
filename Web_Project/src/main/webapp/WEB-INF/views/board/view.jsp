@@ -8,6 +8,21 @@
 <%@ include file="../include/member_header.jsp" %> 
 <script>
 $(function(){
+	$("#btnReply").click(function(){
+		var replytext=$("#replytext").val();
+		var bno="${dto.bno}";
+		var param="replytext="+replytext+"&bno="+bno;
+		$.ajax({
+			type:"post",
+			url:"${path}/reply/insert.do",
+			data:param,
+			success:function(){
+				alert("댓글이 등록되었습니다.");
+				listReply2();
+			}
+		});
+	});
+	
 	$("#btnList").click(function(){
 		history.back();
 	});
@@ -54,6 +69,36 @@ $(function(){
 	  $('input').addClass('form-control');
 	  $('textarea').addClass('form-control');
 });
+
+function listReply2(){
+	$.ajax({
+		type:"get",
+		url:"${path}/reply/listJson.do?bno=${dto.bno}",
+		success:function(result){
+			var output="<table>";
+			for(var i in result){
+				output+="<tr>";
+				output+="<td>"+result[i].userName;
+				output+="("+changeDate(result[i].regdate)+")<br>";
+				output+=result[i].replytext+"</td>";
+				output+="</tr>";
+			}
+			output += "</table>";
+			$("#listReply").html(output);
+		}
+	});
+}
+function changeDate(date){
+	date = new Date(parseInt(date));
+	year = date.getFullYear();
+	month = date.getMonth()+1;
+	day = date.getDate();
+	hour = date.getHours();
+	minute = date.getMinutes();
+	second = date.getSeconds();
+	strDate = year+"-"+month+"-"+day+"  "+hour+":"+minute+":"+second;
+	return strDate;
+}
 </script>
 <style>
 <style>
@@ -105,6 +150,16 @@ span{
  		<button type="button" id="btnList">목록</button>
  	</center>
  </form>
+ <div style="width:600px; text-align:center;">
+ 	<c:if test="${sessionScope.userId != null}">
+ 		<textarea rows="5" cols="80" id="replytext" placeholder="댓글을 작성하세요"></textarea>
+ 		<br>
+ 		<button type="button" id="btnReply">댓글쓰기</button>
+ 	</c:if>
+ </div>
+ <div id="listReply">
+ 	
+ </div>
 </div>
 
 </body>

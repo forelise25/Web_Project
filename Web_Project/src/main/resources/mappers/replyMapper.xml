@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+	<insert id="insertReply">
+		insert into tbl_reply (bno, replytext, replyer) values (#{bno}, #{replytext}, #{replyer})
+	</insert>
+	
+	<select id="listReply" resultType="com.example.project.model.dto.ReplyVO">
+		select rno, bno, replytext, replyer, user_name as userName, r.regdate, r.updatedate
+		from tbl_reply r, tbl_member m
+		where r.replyer = m.user_id and bno=#{bno}
+	</select>
+</mapper>
