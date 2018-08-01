@@ -44,7 +44,14 @@
 	<c:forEach var="row" items="${map.list}">
 		<tr>
 			<td>${row.bno}</td>
-			<td><a href="${path}/board/view.do?bno=${row.bno}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}">${row.title}</a></td>
+			<td>
+				<a href="${path}/board/view.do?bno=${row.bno}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}">
+					${row.title}
+					<c:if test="${row.recnt > 0}">
+						<span class="badge badge-primary">${row.recnt}</span>
+					</c:if>
+				</a>
+			</td>
 			<td>${row.userName}</td>
 			<td><fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			<td>${row.viewcnt}</td>

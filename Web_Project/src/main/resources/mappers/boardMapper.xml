@@ -20,14 +20,18 @@
 		    <!-- 회원권환이 없는 게시글 목록 쿼리
 		    SELECT bno, title, content, writer, regdate, viewcnt 
 		    FROM tbl_board -->
-		    SELECT bno, title, content, b.regdate, viewcnt, user_name AS userName
-		    FROM tbl_board b, tbl_member m
+		    SELECT 
+		    	bno, title, content, b.regdate, viewcnt, user_name AS userName,
+		    	(select count(*) from tbl_reply where bno = b.bno) AS recnt
+		    FROM 
+		    	tbl_board b, tbl_member m
 		 
 		    <!-- WHERE절을 include 태그로 삽입 -->
 		    <include refid="search"></include>
 		    ORDER BY bno desc, regdate desc
 		 	<include refid="paging"></include>
 		</select>
+		
 		<sql id="paging">
 		 	limit #{start}, #{end}
 		</sql>

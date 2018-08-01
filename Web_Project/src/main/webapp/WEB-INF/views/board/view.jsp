@@ -8,6 +8,8 @@
 <%@ include file="../include/member_header.jsp" %> 
 <script>
 $(function(){
+	listReply();
+	//listReply2();
 	$("#btnReply").click(function(){
 		var replytext=$("#replytext").val();
 		var bno="${dto.bno}";
@@ -18,7 +20,8 @@ $(function(){
 			data:param,
 			success:function(){
 				alert("댓글이 등록되었습니다.");
-				listReply2();
+				//listReply2();
+				listReply();
 			}
 		});
 	});
@@ -69,7 +72,15 @@ $(function(){
 	  $('input').addClass('form-control');
 	  $('textarea').addClass('form-control');
 });
-
+function listReply(){
+	$.ajax({
+		type:"get",
+		url:"${path}/reply/list.do?bno=${dto.bno}",
+		success:function(result){
+			$("#listReply").html(result);
+		}
+	});
+}
 function listReply2(){
 	$.ajax({
 		type:"get",
@@ -157,9 +168,7 @@ span{
  		<button type="button" id="btnReply">댓글쓰기</button>
  	</c:if>
  </div>
- <div id="listReply">
- 	
- </div>
+ <div id="listReply"></div>
 </div>
 
 </body>

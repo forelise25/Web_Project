@@ -10,8 +10,14 @@ public class BoardVO {
 	private Date regdate;
 	private int viewcnt;
 	private String userName;
+	private int recnt;
 	
-	
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
+	}
 	public int getBno() {
 		return bno;
 	}
